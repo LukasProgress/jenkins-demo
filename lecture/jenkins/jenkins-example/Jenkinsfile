@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo "This is Build Number ${env.BUILD_NUMBER}"
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/LukasProgress/jenkins-demo/'
+                
+                sh '''ls -l
+                cd lecture/jenkins/jenkins-example
+                npm install
+                '''
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh '''cd lecture/jenkins/jenkins-example
+                npm test'''
+            }
+        }
+        
+        stage('Run') {
+            steps {
+                sh '''cd lecture/jenkins/jenkins-example
+                node index.js'''
+            }
+        }
+    }
+}
