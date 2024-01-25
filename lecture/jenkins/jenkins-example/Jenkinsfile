@@ -5,6 +5,7 @@ pipeline {
         stage('Hello') {
             steps {
                 echo "This is Build Number ${env.BUILD_NUMBER}"
+                echo "Something changed!"
             }
         }
         
